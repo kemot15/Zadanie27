@@ -6,6 +6,8 @@ public class AuctionFilters {
     private String carMaker;
     private String carModel;
     private String color;
+    private String sort;
+    private int page;
 
     public String getTitle() {
         return title;
@@ -37,5 +39,21 @@ public class AuctionFilters {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
     }
 }

@@ -7,34 +7,53 @@
 <div class="content">
     <h1 style="text-align: center" class="mt-4">WSZYSTKIE AUKCJE</h1>
 
-    <form action="/auctions" method="get" th:object="${filters}">
+    <form action="/auctions" method="get" th:object="${filters}" >
+        <input type="hidden" th:field="*{sort}">
         <input type="text" placeholder="Tytuł aukcji" th:field="*{title}">
         <input type="text" placeholder="Producent" th:field="*{carMaker}">
         <input type="text" placeholder="Marka" th:field="*{carModel}">
         <input type="text" placeholder="Kolor" th:field="*{color}">
+        <input type="number" placeholder="Strona" th:field="*{page}">
+<!--        <input type="hidden" th:object="${filters.setPage(1)}">-->
         <input type="submit" value="Filtruj" class="btn btn-primary"/>
     </form>
 
-    <table class="table">
+    <table class="table" th:object="${filters}">
         <thead>
         <tr>
             <th>
-                <a href="/auctions?sort=title">
+                <a th:href="'/auctions?sort=title' + (${filters.getTitle()!=null}? '&title=' + ${filters.getTitle()} : '')
+                                                    + (${filters.getCarMaker()!=null}? '&carMaker=' + ${filters.getCarMaker()} : '')
+                                                    + (${filters.getCarModel()!=null}? '&carModel=' + ${filters.getCarModel()} : '')
+                                                    + (${filters.getColor()!=null}? '&color=' + ${filters.getColor()} : '')
+                                                    + ('&page=' + ${currentPage})">
                     Tytuł
                 </a>
             </th>
             <th>
-                <a href="/auctions?sort=price">
+                <a th:href="'/auctions?sort=price' + (${filters.getTitle()!=null}? '&title=' + ${filters.getTitle()} : '')
+                                                    + (${filters.getCarMaker()!=null}? '&carMaker=' + ${filters.getCarMaker()} : '')
+                                                    + (${filters.getCarModel()!=null}? '&carModel=' + ${filters.getCarModel()} : '')
+                                                    + (${filters.getColor()!=null}? '&color=' + ${filters.getColor()} : '')
+                                                    + ('&page=' + ${filters.getPage()})">
                     Cena
                 </a>
             </th>
             <th>
-                <a href="/auctions?sort=color">
+                <a th:href="'/auctions?sort=color' + (${filters.getTitle()!=null}? '&title=' + ${filters.getTitle()} : '')
+                                                    + (${filters.getCarMaker()!=null}? '&carMaker=' + ${filters.getCarMaker()} : '')
+                                                    + (${filters.getCarModel()!=null}? '&carModel=' + ${filters.getCarModel()} : '')
+                                                    + (${filters.getColor()!=null}? '&color=' + ${filters.getColor()} : '')
+                                                    + ('&page=' + ${filters.getPage()})">
                     Kolor
                 </a>
             </th>
             <th>
-                <a href="/auctions?sort=endDate">
+                                                    <a th:href="'/auctions?sort=endDate' + (${filters.getTitle()!=null}? '&title=' + ${filters.getTitle()} : '')
+                                                    + (${filters.getCarMaker()!=null}? '&carMaker=' + ${filters.getCarMaker()} : '')
+                                                    + (${filters.getCarModel()!=null}? '&carModel=' + ${filters.getCarModel()} : '')
+                                                    + (${filters.getColor()!=null}? '&color=' + ${filters.getColor()} : '')
+                                                    + ('&page=' + ${filters.getPage()})">
                     Do kiedy
                 </a>
             </th>
@@ -49,8 +68,26 @@
         </tr>
         </tbody>
     </table>
+    <div th:if="${currentPage > 1}">
+    <a th:href="'/auctions?sort=' + ${filters.getSort()} + (${filters.getTitle()!=null}? '&title=' + ${filters.getTitle()} : '')
+                                                    + (${filters.getCarMaker()!=null}? '&carMaker=' + ${filters.getCarMaker()} : '')
+                                                    + (${filters.getCarModel()!=null}? '&carModel=' + ${filters.getCarModel()} : '')
+                                                    + (${filters.getColor()!=null}? '&color=' + ${filters.getColor()} : '')
+                                                    + ('&page=' + ${filters.getPage()-1})">
+        <<
+    </a>
+    </div>
+    <div th:if="${currentPage < totalPages}">
+    <a th:href="'/auctions?sort=' + ${filters.getSort()} + (${filters.getTitle()!=null}? '&title=' + ${filters.getTitle()} : '')
+                                                    + (${filters.getCarMaker()!=null}? '&carMaker=' + ${filters.getCarMaker()} : '')
+                                                    + (${filters.getCarModel()!=null}? '&carModel=' + ${filters.getCarModel()} : '')
+                                                    + (${filters.getColor()!=null}? '&color=' + ${filters.getColor()} : '')
+                                                    + ('&page=' + ${filters.getPage()+1})">
+        >>
+    </a>
+    </div>
 
 
-</div>
+</th:div>
 </body>
 </html>
